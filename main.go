@@ -2,6 +2,7 @@ package main
 
 import (
   "os"
+  "bytes"
   "fmt"
   "strings"
   "flag"
@@ -14,9 +15,9 @@ func main() {
   opt := flag.String("opt", "", "option")
   if *act == "get" && strings.Contains(*opt, "github.com") {
     parts := strings.Split(*opt, "/")
-    dirs := strings.Join(parts[:len(parts-1)], "/")
+    dirs := strings.Join(parts[:len(parts)-1], "/")
     fmt.Println("Creating ", dirs)
-    os.MkdirAll(dirs)
+    os.MkdirAll(dirs, 775)
     cmd := exec.Command("git clone https://www."+*opt)
     var out bytes.Buffer
     cmd.Stdout = &out
@@ -25,7 +26,7 @@ func main() {
       log.Fatal(err)
     }
     log.Println(cmd.Args)
-    err := cmd.Wait()
+    err = cmd.Wait()
     if err != nil {
       log.Printf("Command finished with error: %v", err)
     }
