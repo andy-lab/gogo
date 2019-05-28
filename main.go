@@ -19,7 +19,7 @@ func main() {
     dirs := strings.Join(parts[:len(parts)-1], "/")
     fmt.Println("Creating ", "~/go/src/"+dirs)
     os.MkdirAll(dirs, 775)
-    cmd := exec.Command("/usr/bin/git clone https://www."+*opt)
+    cmd := exec.Command("/usr/bin/git", "clone", "https://www."+*opt)
     var out bytes.Buffer
     cmd.Stdout = &out
     err := cmd.Start()
