@@ -13,6 +13,7 @@ import (
 func main() {
   act := flag.String("cmd", "", "command name")
   opt := flag.String("opt", "", "option")
+  fmt.Println(*act, *opt)
   if *act == "get" && strings.Contains(*opt, "github.com") {
     parts := strings.Split(*opt, "/")
     dirs := strings.Join(parts[:len(parts)-1], "/")
