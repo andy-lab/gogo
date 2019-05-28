@@ -24,8 +24,9 @@ func main() {
   if *act == "get" && strings.Contains(*opt, "github.com") {
     parts := strings.Split(*opt, "/")
     dirs := strings.Join(parts[:len(parts)-1], "/")
-    projDir := filepath.Join(gopath, dirs)
-    fmt.Println("Creating ", projDir)
+    projParentDir := filepath.Join(gopath, dirs)
+    fmt.Println("Creating ", projParentDir)
+    projDir := filepath.Join(projParentDir, parts[len(parts)-1])
     os.MkdirAll(dirs, 775)
     cmd := exec.Command("git", "clone", "https://www."+*opt, projDir)
     var out bytes.Buffer
